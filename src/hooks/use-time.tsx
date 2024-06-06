@@ -1,5 +1,10 @@
-export const month = new Date().getMonth()
+export const date = new Date()
+
+export const time = new Date().getTime()
+
 export const year = new Date().getFullYear()
+
+export const month = new Date().getMonth()
 
 export const getCurrentSeason = (): string => {
   if (month >= 2 && month <= 4) {

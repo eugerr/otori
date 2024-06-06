@@ -11,19 +11,6 @@ import { Container } from '@/components/ui/container'
 import { Section } from '@/components/ui/section'
 import { ArrowRightIcon } from '@radix-ui/react-icons'
 import { ArrowRight } from 'lucide-react'
-import parse from 'html-react-parser'
-import {
-  Credenza,
-  CredenzaBody,
-  CredenzaClose,
-  CredenzaContent,
-  CredenzaDescription,
-  CredenzaFooter,
-  CredenzaHeader,
-  CredenzaTitle,
-  CredenzaTrigger,
-} from '@/components/ui/credenza'
-
 import { FetchResults } from '@/types/api'
 
 import Link from 'next/link'
@@ -40,7 +27,6 @@ export function Hero({ animeFetcher }: HeroProps) {
   return (
     <Carousel
       opts={{
-        align: 'start',
         loop: true,
       }}
     >
@@ -72,28 +58,6 @@ function CustomCard(props: Anime) {
   const animeTitle = formatTitle(title)
   return (
     <Section className='relative'>
-      {/* <Credenza>
-        <CredenzaTrigger asChild>
-          <button>Open modal</button>
-        </CredenzaTrigger>
-        <CredenzaContent>
-          <CredenzaHeader>
-            <CredenzaTitle>Credenza</CredenzaTitle>
-            <CredenzaDescription>
-              A responsive modal component for shadcn/ui.
-            </CredenzaDescription>
-          </CredenzaHeader>
-          <CredenzaBody>
-            This component is built using shadcn/ui&apos;s dialog and drawer
-            component, which is built on top of Vaul.
-          </CredenzaBody>
-          <CredenzaFooter>
-            <CredenzaClose asChild>
-              <button>Close</button>
-            </CredenzaClose>
-          </CredenzaFooter>
-        </CredenzaContent>
-      </Credenza> */}
       <Container className='flex flex-col gap-8 relative rounded-md overflow-hidden'>
         <Image
           src={cover}
@@ -120,7 +84,7 @@ function CustomCard(props: Anime) {
           </Link>
         </Badge>
         <h1 className='font-bold text-2xl text-white'>{animeTitle}</h1>
-        <div className='flex gap-4'>
+        <div className='flex gap-4 ml-5'>
           <Button size='sm' variant='gooeyLeft'>
             Watch Now
           </Button>

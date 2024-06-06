@@ -1,12 +1,11 @@
-import { cn } from '@/lib/utils'
+import { Section } from './ui/section'
+import { Container } from './ui/container'
 import Image from 'next/image'
 import Link from 'next/link'
 import Logo from '../../public/next.svg'
 import Balancer from 'react-wrap-balancer'
 import { Button } from './ui/button'
 import { Github, Twitter, Facebook } from 'lucide-react'
-import { Section } from './ui/section'
-import { Container } from './ui/container'
 
 export default function Footer() {
   return (
@@ -15,19 +14,19 @@ export default function Footer() {
         <Container className='grid gap-6'>
           <div className='flex flex-col gap-6 not-prose'>
             <Link href='/'>
-              <h3 className='sr-only'>brijr/components</h3>
+              <h3 className='sr-only'>Otori</h3>
               <Image
                 src={Logo}
-                alt='Logo'
+                alt='Otori Logo'
                 width={120}
                 height={27.27}
                 className='dark:invert hover:opacity-75 transition-all'
-              ></Image>
+              />
             </Link>
             <p>
               <Balancer>
-                brijr/components is a collection of Next.js, React, Typescript
-                components for building landing pages and websites.
+                This website doesn&apos;t store any files. It simply shares
+                links to media content hosted by third-party services.
               </Balancer>
             </p>
           </div>
@@ -50,8 +49,8 @@ export default function Footer() {
             </Button>
           </div>
           <p className='text-muted-foreground'>
-            © <a href='https://github.com/brijr/components'>brijr/components</a>
-            . All rights reserved. 2024-present.
+            © <a href='https://github.com/otori'>Otori</a>. All rights reserved.
+            2024-present.
           </p>
         </Container>
       </Section>

@@ -26,7 +26,7 @@ export function AnimeCardContainer({
   title,
 }: AnimeCardContainerProps) {
   return (
-    <div className='space-y-4'>
+    <div className='space-y-4 my-5 md:my-10'>
       <div className='flex gap-4 justify-between'>
         <h2 className='text-2xl font-bold'>{title}</h2>
         <Button variant='outline' asChild>
@@ -36,7 +36,7 @@ export function AnimeCardContainer({
           </Link>
         </Button>
       </div>
-      <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4'>
+      <div className='grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4'>
         <Suspense
           fallback={
             <>
@@ -91,7 +91,9 @@ function AnimeCard({
             alt={animeTitle}
           />
           <div className='absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex items-end p-2'>
-            <h3 className='text-white'>{animeTitle}</h3>
+            <h3 className='text-white text-sm md:text-base font-semibold'>
+              {animeTitle}
+            </h3>
           </div>
         </div>
         <div className='p-2 absolute inset-0 transform translate-y-full group-hover:translate-y-0 transition duration-300 ease-in-out space-y-2'>

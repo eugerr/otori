@@ -8,7 +8,7 @@ const Card = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn('aspect-video lg:aspect-[9/16]', className)}
+    className={cn('aspect-[9/15] md:aspect-[9/14]', className)}
     {...props}
   />
 ))

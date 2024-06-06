@@ -12,15 +12,23 @@ const Home = async () => {
   )
 
   const getTrending = cache(
-    async () => await getAnime('trending'),
-    ['/', 'trending'],
-    { revalidate: 60 * 60 * 24 }
+    async () => await getAnime('top-airing'),
+    ['/', 'top-airing'],
+    { revalidate: ONE_DAY }
+  )
+
+  const getUpcoming = cache(
+    async () => await getAnime('upcoming'),
+    ['/', 'upcoming'],
+    { revalidate: ONE_DAY }
   )
 
   return (
     <>
       <Hero animeFetcher={getPopular} />
       <AnimeCardContainer title='Trending' animeFetcher={getTrending} />
+      <AnimeCardContainer title='Upcoming' animeFetcher={getUpcoming} />
+      <AnimeCardContainer title='Popular' animeFetcher={getPopular} />
     </>
   )
 }
