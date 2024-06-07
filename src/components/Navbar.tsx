@@ -8,7 +8,7 @@ import { ComponentProps, PropsWithChildren } from 'react'
 import { Button, buttonVariants } from './ui/button'
 
 export function Nav({ children }: PropsWithChildren) {
-  return <nav className='flex justify-between'>{children}</nav>
+  return <nav className='flex justify-between py-3 md:py-6'>{children}</nav>
 }
 
 export function NavLink(props: Omit<ComponentProps<typeof Link>, 'className'>) {

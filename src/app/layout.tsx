@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import Footer from '@/components/Footer'
 import { ThemeProvider } from '@/components/ThemeProvider'
+import { Container } from '@/components/ui/container'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -25,7 +26,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <main className='min-h-screen'>{children}</main>
+          <main className='min-h-screen'>
+            <Container>{children}</Container>
+          </main>
           <Footer />
         </ThemeProvider>
       </body>

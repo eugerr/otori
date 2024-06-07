@@ -15,6 +15,7 @@ import {
 } from './ui/card'
 import parse from 'html-react-parser'
 import Image from 'next/image'
+import { Skeleton } from './ui/skeleton'
 
 interface AnimeCardContainerProps {
   animeFetcher: () => Promise<FetchResults>
@@ -37,17 +38,7 @@ export function AnimeCardContainer({
         </Button>
       </div>
       <div className='grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4'>
-        <Suspense
-          fallback={
-            <>
-              <h1>loading...</h1>
-              <h1>loading...</h1>
-              <h1>loading...</h1>
-              <h1>loading...</h1>
-              <h1>loading...</h1>
-            </>
-          }
-        >
+        <Suspense fallback={<AnimeCardSkeleton />}>
           <AnimeCardSuspense animeFetcher={animeFetcher} />
         </Suspense>
       </div>
@@ -121,25 +112,23 @@ function AnimeCard({
 
 export function AnimeCardSkeleton() {
   return (
-    <Card className='overflow-hidden flex flex-col animate-pulse'>
-      <div className='w-full aspect-video bg-gray-300' />
-      <CardHeader>
-        <CardTitle>
-          <div className='w-3/4 h-6 rounded-full bg-gray-300' />
-        </CardTitle>
-        <CardDescription>
-          <div className='w-1/2 h-4 rounded-full bg-gray-300' />
-        </CardDescription>
-      </CardHeader>
-      <CardContent className='space-y-2'>
-        <div className='w-full h-4 rounded-full bg-gray-300' />
-        <div className='w-full h-4 rounded-full bg-gray-300' />
-        <div className='w-3/4 h-4 rounded-full bg-gray-300' />
-      </CardContent>
-      <CardFooter>
-        <Button className='w-full' disabled size='lg'></Button>
-      </CardFooter>
-    </Card>
+    <>
+      <Card>
+        <Skeleton className='aspect-[9/15] md:aspect-[9/14]' />
+      </Card>
+      <Card>
+        <Skeleton className='aspect-[9/15] md:aspect-[9/14]' />
+      </Card>
+      <Card>
+        <Skeleton className='aspect-[9/15] md:aspect-[9/14]' />
+      </Card>
+      <Card>
+        <Skeleton className='aspect-[9/15] md:aspect-[9/14]' />
+      </Card>
+      <Card>
+        <Skeleton className='aspect-[9/15] md:aspect-[9/14]' />
+      </Card>
+    </>
   )
 }
 

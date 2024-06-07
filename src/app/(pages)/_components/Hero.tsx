@@ -18,6 +18,7 @@ import React, { Suspense } from 'react'
 import { Anime } from '@/types/anime'
 import { RemoveHTMLTags, formatTitle } from '@/lib/utils'
 import Image from 'next/image'
+import { Skeleton } from '@/components/ui/skeleton'
 
 interface HeroProps {
   animeFetcher: () => Promise<FetchResults>
@@ -31,7 +32,15 @@ export function Hero({ animeFetcher }: HeroProps) {
       }}
     >
       <CarouselContent>
-        <Suspense fallback={<h1>loading...</h1>}>
+        <Suspense
+          fallback={
+            <CarouselItem>
+              <Section>
+                <Skeleton className='w-full h-[60vh]' />
+              </Section>
+            </CarouselItem>
+          }
+        >
           <CustomCarouselItemSuspense animeFetcher={animeFetcher} />
         </Suspense>
       </CarouselContent>
@@ -54,10 +63,10 @@ async function CustomCarouselItemSuspense({
 }
 
 function CustomCard(props: Anime) {
-  const { title, description, malId, cover, image } = props
+  const { title, description, malId, cover, image, id } = props
   const animeTitle = formatTitle(title)
   return (
-    <Section className='relative'>
+    <div className='relative'>
       <Container className='flex flex-col gap-8 relative rounded-md overflow-hidden'>
         <Image
           src={cover}
@@ -94,7 +103,7 @@ function CustomCard(props: Anime) {
             iconPlacement='right'
             size='sm'
           >
-            Learn More
+            <Link href={`/info?id=${id}`}>Learn More</Link>
           </Button>
         </div>
         <div>
@@ -103,6 +112,6 @@ function CustomCard(props: Anime) {
           </p>
         </div>
       </Container>
-    </Section>
+    </div>
   )
 }

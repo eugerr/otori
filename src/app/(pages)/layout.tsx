@@ -6,7 +6,7 @@ import React, { PropsWithChildren } from 'react'
 
 export default function Layout({ children }: PropsWithChildren) {
   return (
-    <Container>
+    <>
       <Nav>
         <div className='flex items-center'>
           <Bird />
@@ -21,6 +21,6 @@ export default function Layout({ children }: PropsWithChildren) {
         </div>
       </Nav>
       {children}
-    </Container>
+    </>
   )
 }
