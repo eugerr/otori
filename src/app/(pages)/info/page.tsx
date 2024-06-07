@@ -123,12 +123,12 @@ function AnimeInfoSectionLoader() {
 
 // EPISODES
 
-type AnimeEpisodeProps = {
+export type AnimeEpisodeProps = {
   animeFetcher: () => Promise<Episode[]>
   getAnimeInfo: () => Promise<Anime>
 }
 
-function AnimeEpisodeSection({
+export function AnimeEpisodeSection({
   animeFetcher,
   getAnimeInfo,
 }: AnimeEpisodeProps) {
@@ -142,7 +142,7 @@ function AnimeEpisodeSection({
   )
 }
 
-async function AnimeEpisodeSuspense({
+export async function AnimeEpisodeSuspense({
   animeFetcher,
   getAnimeInfo,
 }: AnimeEpisodeProps) {
@@ -156,7 +156,13 @@ async function AnimeEpisodeSuspense({
   }
 }
 
-function AnimeEpisodeCards({ anime, info }: { anime: Episode[]; info: Anime }) {
+export function AnimeEpisodeCards({
+  anime,
+  info,
+}: {
+  anime: Episode[]
+  info: Anime
+}) {
   return (
     <Section className='flex flex-col gap-6'>
       <h3 className='text-3xl font-bold'>
@@ -167,7 +173,7 @@ function AnimeEpisodeCards({ anime, info }: { anime: Episode[]; info: Anime }) {
           {anime.map((data) => (
             <Link
               key={data.id}
-              href={`/watch?id=${info.id}?episodeId=${data.id}`}
+              href={`/watch?id=${info.id}&episodeId=${data.id}`}
               className='relative group border overflow-hidden aspect-video'
             >
               <Icon className='group-hover:block hidden absolute h-6 w-6 -top-3 -left-3 dark:text-white text-black' />
@@ -201,7 +207,7 @@ function AnimeEpisodeCards({ anime, info }: { anime: Episode[]; info: Anime }) {
   )
 }
 
-function AnimeEpisodeLoader() {
+export function AnimeEpisodeLoader() {
   return (
     <div>
       <Skeleton className='w-1/3 h-10 mt-2' />
@@ -216,7 +222,7 @@ function AnimeEpisodeLoader() {
   )
 }
 
-const Icon = ({ className, ...rest }: any) => {
+export const Icon = ({ className, ...rest }: any) => {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'

@@ -1,79 +1,65 @@
+import {
+  getAnime,
+  getAnimeEpisodes,
+  getAnimeStreamingLinks,
+} from '@/actions/anime'
 import Player from '@/components/Player'
-import React from 'react'
+import { cache } from '@/lib/cache'
+import React, { Suspense } from 'react'
+import { AnimeEpisodeSection } from '../info/page'
+import { StreamEpisodeResult } from '@/types/anime'
 
 export default function WatchPage({
   searchParams,
 }: {
-  searchParams: { id: string }
+  searchParams: { id: string; episodeId: string }
 }) {
   console.log(searchParams)
+
+  const getAnimeInfo = cache(
+    async () => await getAnime('search', searchParams.id),
+    ['/info', searchParams.id]
+  )
+
+  const getAnimeEpisode = cache(
+    async () => await getAnimeEpisodes(searchParams.id),
+    ['/info-episodes', searchParams.id]
+  )
+
+  const getStreamingLinks = cache(
+    async () => await getAnimeStreamingLinks(searchParams.episodeId),
+    ['/watch', searchParams.id]
+  )
+
   return (
-    <div>
-      <Player />
-    </div>
+    <>
+      <AnimeVideoSection animeFetcher={getStreamingLinks} />
+      <AnimeEpisodeSection
+        getAnimeInfo={getAnimeInfo}
+        animeFetcher={getAnimeEpisode}
+      />
+    </>
   )
 }
 
-// import { getAnimeStreamingLinks } from '@/actions/anime'
-// import { AnimeCardSkeleton } from '@/components/Card'
-// import Player from '@/components/Player'
-// import { Anime, Episode, StreamEpisodeResult } from '@/types/anime'
-// import React, { Suspense } from 'react'
+type AnimeInfoSectionProps = {
+  animeFetcher: () => Promise<StreamEpisodeResult>
+}
 
-// export default function WatchPage({
-//   searchParams,
-// }: {
-//   searchParams: { id: string }
-// }) {
-//   const getAnimeEpisode = async () =>
-//     await getAnimeStreamingLinks(searchParams.id)
+function AnimeVideoSection({ animeFetcher }: AnimeInfoSectionProps) {
+  return (
+    <Suspense fallback={<h1>loading...</h1>}>
+      <AnimeCardSuspense animeFetcher={animeFetcher} />
+    </Suspense>
+  )
+}
 
-//   return (
-//     <div>
-//       <AnimeEpisodeVideo animeInfoFetcher={} animeFetcher={getAnimeEpisode} />
-//     </div>
-//   )
-// }
+async function AnimeCardSuspense({
+  animeFetcher,
+}: {
+  animeFetcher: () => Promise<StreamEpisodeResult>
+}) {
+  const res = await animeFetcher()
 
-// type AnimeInfoSectionProps = {
-//   animeFetcher: () => Promise<StreamEpisodeResult>
-//   animeInfoFetcher: () => Promise<Anime>
-// }
-
-// function AnimeEpisodeVideo({
-//   animeFetcher,
-//   animeInfoFetcher,
-// }: AnimeInfoSectionProps) {
-//   return (
-//     <Suspense fallback={<AnimeCardSkeleton />}>
-//       <AnimeCardSuspense
-//         animeInfoFetcher={animeInfoFetcher}
-//         animeFetcher={animeFetcher}
-//       />
-//     </Suspense>
-//   )
-// }
-
-// async function AnimeCardSuspense({
-//   animeFetcher,
-//   animeInfoFetcher,
-// }: {
-//   animeFetcher: () => Promise<StreamEpisodeResult>
-//   animeInfoFetcher: () => Promise<Anime>
-// }) {
-//   const res = await animeFetcher()
-//   console.log(res)
-//   if (res.headers.Referer) {
-//     return (
-//       <div className=''>
-//         {/* <iframe className='w-full h-full' src={res.headers.Referer} /> */}
-//         <Player />
-//         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Non natus,
-//         velit hic quis quas sequi soluta iure, consequuntur aliquid tenetur
-//         eaque cupiditate ea temporibus ut unde voluptatum perspiciatis dolorem.
-//         Ratione.
-//       </div>
-//     )
-//   }
-//   return <div>episode</div>
-// }
+  return <Player data={res} />
+}

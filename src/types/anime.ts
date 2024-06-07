@@ -135,6 +135,6 @@ export interface StreamEpisode {
 export interface StreamEpisodeResult {
   headers: {
     Referer: string
-    sources: StreamEpisode[]
   }
+  sources: StreamEpisode[]
 }
